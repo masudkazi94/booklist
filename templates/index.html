@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>My Book Collection</h2>
+    <h2>Books Collection</h2>
     
     {% if books %}
         <table border="1">
@@ -38,6 +38,6 @@
             {% endfor %}
         </table>
     {% else %}
-        <p>No books in your collection yet. <a href="{{ url_for('add_book') }}">Add your first book!</a></p>
+        <p>No books added in collection yet... </p>
     {% endif %}
 {% endblock %}
