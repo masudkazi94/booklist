@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>My Book Collection</h2>
+    
+    {% if books %}
+        <table border="1">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Description</th>
+                <th>Year</th>
+                <th>Read</th>
+                <th>Actions</th>
+            </tr>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.desc }}</td>
+                <td>{{ book.year }}</td>
+                <td>
+                    {% if book.read %}
+                        Yes 
+                        <a href="{{ url_for('toggle', id=book.id) }}">[Mark Unread]</a>
+                    {% else %}
+                        No 
+                        <a href="{{ url_for('toggle', id=book.id) }}">[Mark Read]</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('edit_book', id=book.id) }}" class="edit-btn">Edit</a>
+                    <form action="{{ url_for('delete_book', id=book.id) }}" method="POST" style="display:inline;">
+                        <input type="submit" value="Delete" onclick="return confirm('Are you sure?')">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No books in your collection yet. <a href="{{ url_for('add_book') }}">Add your first book!</a></p>
+    {% endif %}
+{% endblock %}
